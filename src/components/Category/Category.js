@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import CategoryItem from '../CategoryItem/CategoryItem';
 
 class Category extends Component {
     state = {
@@ -17,7 +18,6 @@ class Category extends Component {
             type: 'FETCH_GIF',
             payload: {search: this.state.search}
         });
-
     }
 
     render() {
@@ -30,7 +30,7 @@ class Category extends Component {
                         {/* checks if giphyReducer is not null before mapping and then map through giphyReducer array*/}
                         {this.props.reduxState.giphyReducer != null && this.props.reduxState.giphyReducer.map((gif) => {
                         // return (console.log('gif', gif, gif.url));
-                        return <li key={gif.id}><img src={gif.images.original.url} alt="gif"/></li>
+                            return <CategoryItem key={gif.id} url={gif.images.original.url} gif={gif}/>
                         })}
                 </ul>
             </>
