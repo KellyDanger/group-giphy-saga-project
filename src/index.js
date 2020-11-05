@@ -12,7 +12,17 @@ import {takeEvery, put} from 'redux-saga/effects';
 import axios from 'axios';
 
 function* sagaWatcher(){
-  yield takeEvery('FETCH_GIF', fetchGif)
+  yield takeEvery('FETCH_GIF', fetchGif);
+  yield takeEvery('ADD_FAVORITE', addFavorite);
+}
+
+// THIS IS WHERE WE LEFT OFF
+function* addFavorite(action) {
+    try {
+        yield axios.post('/api/favorite', action.payload);
+    }catch (error) {
+        console.log('Error in post', error);
+    }
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -26,6 +36,7 @@ const giphyReducer = (state=null, action) => {
             return state;
     }
 }
+
 
 // fetch the GIF API of a given string payload
 function* fetchGif(action){
