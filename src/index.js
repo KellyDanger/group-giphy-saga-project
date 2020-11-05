@@ -17,7 +17,7 @@ function* sagaWatcher(){
 
 const sagaMiddleware = createSagaMiddleware();
 
-const giphyReducer = (state=[], action) => {
+const giphyReducer = (state=null, action) => {
     console.log('in giphyReducer', state);
     switch (action.type) {
         case 'SET_GIF':
