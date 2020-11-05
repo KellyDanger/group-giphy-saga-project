@@ -18,6 +18,7 @@ function* sagaWatcher(){
 const sagaMiddleware = createSagaMiddleware();
 
 const giphyReducer = (state=[], action) => {
+    console.log('in giphyReducer', state);
     switch (action.type) {
         case 'SET_GIF':
             return action.payload;
@@ -26,8 +27,16 @@ const giphyReducer = (state=[], action) => {
     }
 }
 
-function* fetchGif(){
-  yield console.log('in fetchGif')
+// fetch the GIF API of a given string payload
+function* fetchGif(action){
+  yield console.log('in fetchGif', action.payload)
+  try{
+      const searchResponse = yield axios.post('/api/search', action.payload);
+      yield put({ type: 'SET_GIF', payload: searchResponse.data});
+  }
+  catch (error) {
+      console.log('ERROR in fetchGif', error);
+  }
   // axios GET request
 }
 

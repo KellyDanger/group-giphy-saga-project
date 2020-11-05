@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import Category from '../Category/Category'
 
 
 class App extends Component {
@@ -8,6 +9,7 @@ class App extends Component {
     return (
       <div>
         <h1>Giphy Search!</h1>
+        <Category/>
       </div>
     );
   }
