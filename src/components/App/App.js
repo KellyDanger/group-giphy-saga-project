@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 
 class App extends Component {
@@ -13,4 +14,8 @@ class App extends Component {
   
 }
 
-export default App;
+const putReduxStateOnProps = (reduxState) => ({
+  reduxState
+});
+
+export default connect(putReduxStateOnProps)(App);
