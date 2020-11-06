@@ -14,6 +14,7 @@ import axios from 'axios';
 function* sagaWatcher(){
   yield takeEvery('FETCH_GIF', fetchGif);
   yield takeEvery('ADD_FAVORITE', addFavorite);
+  yield takeEvery('FETCH_FAV', fetchFav);
 }
 
 // THIS IS WHERE WE LEFT OFF
@@ -25,7 +26,26 @@ function* addFavorite(action) {
     }
 }
 
+function* fetchFav() {
+    try {
+        const fetchFavResponse = yield axios.get('/api/favorite');
+        yield put({type: 'SET_FAV', payload: fetchFavResponse.data})
+    } catch (error) {
+        console.log('ERROR IN FETCH GET', error);
+    }
+}
+
 const sagaMiddleware = createSagaMiddleware();
+
+const favoriteReducer = (state=[], action) => {
+    console.log('in favoriteReducer', state);
+    switch (action.type) {
+        case 'SET_FAV':
+            return action.payload;
+        default:
+            return state;
+    }
+}
 
 const giphyReducer = (state=null, action) => {
     console.log('in giphyReducer', state);
@@ -53,7 +73,8 @@ function* fetchGif(action){
 
 const store = createStore(
     combineReducers({
-        giphyReducer
+        giphyReducer,
+        favoriteReducer
     }),
     applyMiddleware(sagaMiddleware, logger)
   );
