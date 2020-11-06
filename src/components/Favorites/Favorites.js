@@ -21,6 +21,7 @@ class Favorites extends Component {
                         // return (console.log('gif', gif, gif.url));
                             return <li key={gif.id}>
                                 <img src={gif.url} alt={gif.title}/>
+                                <select name="favorite"/>
                             </li>
                         })}
                 </ul>
