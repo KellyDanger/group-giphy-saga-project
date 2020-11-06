@@ -15,9 +15,19 @@ function* sagaWatcher(){
   yield takeEvery('FETCH_GIF', fetchGif);
   yield takeEvery('ADD_FAVORITE', addFavorite);
   yield takeEvery('FETCH_FAV', fetchFav);
+  yield takeEvery('SET_CATEGORY', addCategory);
 }
 
-// THIS IS WHERE WE LEFT OFF
+function* addCategory(action) {
+    try {
+        yield console.log('payload is:', action.payload)
+        yield axios.put(`/api/favorite/${action.payload.value}`, action.payload)
+    }
+    catch (error) {
+        console.log('ERROR in update category', error);
+    }
+}
+
 function* addFavorite(action) {
     try {
         yield axios.post('/api/favorite', action.payload);
