@@ -9,6 +9,10 @@ class Favorites extends Component {
     getFavGif = () => {
         this.props.dispatch({type: 'FETCH_FAV'})
     }
+    handleChange = (event) => {
+        console.log('event.target.value is', event.target.value, event.target.id);       
+        this.props.dispatch({type: 'SET_CATEGORY', payload:{value: event.target.value, id: event.target.id} })
+    }
 
     
     render(){
@@ -18,10 +22,18 @@ class Favorites extends Component {
                 <ul>
                         {/* checks if giphyReducer is not null before mapping and then map through giphyReducer array*/}
                         {this.props.reduxState.favoriteReducer.map((gif) => {
-                        // return (console.log('gif', gif, gif.url));
+                                // (console.log('gif', gif, gif.url));
                             return <li key={gif.id}>
                                 <img src={gif.url} alt={gif.title}/>
-                                <select name="favorite"/>
+                                <label htmlFor="categories">Choose a category</label>
+                                <select onChange={this.handleChange} name="categories" id={gif.id}>
+                                    <option value=""></option>
+                                    <option value={1}>Funny</option>
+                                    <option value={2}>Cohort</option>
+                                    <option value={3}>Cartoon</option>
+                                    <option value={4}>NSFW</option>
+                                    <option value={5}>Meme</option>
+                                </select>
                             </li>
                         })}
                 </ul>
