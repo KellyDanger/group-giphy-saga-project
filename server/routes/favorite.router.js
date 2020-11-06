@@ -5,7 +5,7 @@ const router = express.Router();
 
 // return all favorite images
 router.get('/', (req, res) => {
-  const queryText = `SELECT * FROM "favorites"`;
+  const queryText = `SELECT * FROM "favorites" ORDER BY "id";`;
   pool.query(queryText).then((result) => {
     res.send(result.rows);
   }).catch((error) => {
@@ -34,10 +34,11 @@ router.put('/:favId', (req, res) => {
   console.log('put route category req is', req.params.favId, req.body.id);
   // req.body should contain a category_id to add to this favorite image
   const queryText = `UPDATE "favorites"
-  SET "category_id" = ${req.params.favId}
-  WHERE "id" = ${req.body.id};`
+  SET "category_id" = $1
+  WHERE "id" = $2;`
   pool.query(queryText, [
-
+    req.params.favId,
+    req.body.id
   ])
   res.sendStatus(200);
 });
