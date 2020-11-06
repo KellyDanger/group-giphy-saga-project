@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 class CategoryItem extends Component {
     state = {
-        category: ""
+        category: 0
     }
 
   handleClick = () => {

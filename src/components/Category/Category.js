@@ -30,7 +30,7 @@ class Category extends Component {
                         {/* checks if giphyReducer is not null before mapping and then map through giphyReducer array*/}
                         {this.props.reduxState.giphyReducer != null && this.props.reduxState.giphyReducer.map((gif) => {
                         // return (console.log('gif', gif, gif.url));
-                            return <CategoryItem key={gif.id} url={gif.images.original.url} gif={gif}/>
+                            return <CategoryItem key={gif.id} url={gif.images.original.url} title={gif.title}/>
                         })}
                 </ul>
             </>
